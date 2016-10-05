@@ -1,5 +1,6 @@
 <?php
 
+require("../../config.php");
    //functions.php
    
    //alustan sessiooni, et saaks kasutada
@@ -11,14 +12,14 @@
    
    $database = "if16_henriv";
    
-   function signup ($email, $password) {
+   function savePeople ($gender, $color) {
 		
 		$mysqli = new mysqli($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"],$GLOBALS["database"]);
 
-		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
+		$stmt = $mysqli->prepare("INSERT INTO ClothingOnTheCampus (gender, color) VALUES (?, ?)");
 		echo $mysqli->error;
 
-		$stmt->bind_param("ss", $email, $password);
+		$stmt->bind_param("ss", $gender, $color);
 		
 		if ($stmt->execute()) {
 			echo "salvestamine õnnestus";
@@ -28,7 +29,42 @@
 		
 	}
    
-   
+   function getAllPeople() {
+	   
+	   $mysqli = new mysqli($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"],$GLOBALS["database"]);
+
+		$stmt = $mysqli->prepare("
+		    SELECT id, gender, color, created
+			FROM ClothingOnTheCampus
+		");
+		echo $mysqli->error;
+		
+		$stmt->bind_result($id, $gender, $color, $created);
+		$stmt->execute();
+		
+		//array("Henri", "H")
+		$result = array();
+		
+		//seni kuni on üks rida andmeid saada (10 rida = 10 korda)
+		while ($stmt->fetch()) {
+			
+			$person = new StdClass();
+			$person->id = $id;
+			$person->gender = $gender;
+			$person->clothingColor = $color;
+			$person->created = $created;
+			
+			
+			//echo $color."<br>";
+			array_push($result, $person);
+
+		}	
+		
+		$stmt->close();
+		$mysqli->close();
+		
+		return $result;
+    }
    
     function login($email, $password)  {
 		
@@ -53,6 +89,8 @@
 		 $stmt->execute();
 		 
 		 if($stmt->fetch()) {
+			 
+			 
 			 //oli rida
 			 
 			 //võrdlen paroole

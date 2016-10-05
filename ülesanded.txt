@@ -1,0 +1,7 @@
+login -> signup
+'tühjade väljade kontroll
+'kui parool vale -> emaili ei pea uuesti sisestama
+
+kasutaja loomine oma AB (4 välja salvestab)
+
+oma idee järgi formi salvestus ja näitab ka!
