@@ -11,25 +11,22 @@
    
    $database = "if16_henriv";
    
-   function savePeople ($gender, $password) {
-	   
-	   
-	   $mysqli = new mysqli($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"],$GLOBALS["database"]);
+   function signup ($email, $password) {
 		
+		$mysqli = new mysqli($GLOBALS["serverHost"],$GLOBALS["serverUsername"],$GLOBALS["serverPassword"],$GLOBALS["database"]);
+
+		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?, ?)");
+		echo $mysqli->error;
+
+		$stmt->bind_param("ss", $email, $password);
 		
-	   $stmt = $mysqli->prepare("INSERT INTO ClothingOnTheCampus (gender, color) VALUES (?, ?)");
-	   echo $mysqli->error;
-	
-	   $stmt->bind_param("ss", $gender, $color);
+		if ($stmt->execute()) {
+			echo "salvestamine õnnestus";
+		} else {
+			echo "ERROR ".$stmt->error;
+		}
 		
-	   if($stmt->execute()) {
-		   echo "salvestamine õnnestus";
-	   } else {
-		   echo "ERROR ".$stmt->error;
-   
-       }
-	 
-    }
+	}
    
    
    

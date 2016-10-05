@@ -19,6 +19,16 @@
 
 	   
    }
+   
+   if ( isset($_POST["gender"]) &&
+	     isset($_POST["color"]) &&
+		 !empty($_POST["gender"]) &&
+		 !empty($_POST["color"]) 
+	  ) {
+		  
+		savePeople($_POST["gender"], $_POST["color"]);
+		
+	}
 
 ?>
 <h1>Data</h1>
@@ -27,43 +37,22 @@
    <a href="?loguout=1">Logi välja</a>
 </p>
 
-<h1>Salvesta inimene<h1>
 
+<h1>Salvesta inimene</h1>
 <form method="POST">
 			
-				<label>Sugu</label><br>
-				<input type="radio" name="gender" value="male" > Mees<br>
-				<input type="radio" name="gender" value="female" > Naine<br>
-				<input type="radio" name="gender" value="unknown" > Ei oska öelda<br>
-				
-				<br><br>
-				
-				<input name="signupPassword" type="password" placeholder="Parool"> 
-				
-				<br><br>
-				<label>Värv</label><br>
-				<input name="color" type="color">
-		        
-				<br><br>
-				<input type="submit" value="Salvesta">
-				
-			
-			
-			</form>
-
-
-<form method="POST">
-				<label>Sugu</label><br>
-				<input name="gender" type="text" value="<?="";?>"> 
-				
-				
-				
-				
-			
-			</form>
-			
-<form method="POST">
-			
-				<label>Varv</label><br>
-				<input name="color" type="color" value="<?=$Color;?>"> 
-	</form>
+	<label>Sugu</label><br>
+	<input type="radio" name="gender" value="male" > Mees<br>
+	<input type="radio" name="gender" value="female" > Naine<br>
+	<input type="radio" name="gender" value="Unknown" > Ei oska öelda<br>
+	
+	<!--<input type="text" name="gender" ><br>-->
+	
+	<br><br>
+	<label>Värv</label><br>
+	<input name="color" type="color"> 
+	
+	<br><br>
+	<input type="submit" value="Salvesta">
+	
+</form>
